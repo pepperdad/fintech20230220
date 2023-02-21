@@ -1,10 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-
-const Welcome = (props) => {
-  console.log(props)
-  return <p>안녕하세요. {props.userAge}세 {props.userHeight}cm {props.userName} 님!</p>;
-};
+import InputComponents from "./components/InputComponents";
+import Welcome from "./components/Welcome"
 
 function App() {
   return (
@@ -12,6 +8,7 @@ function App() {
       <Welcome userName="정도영" userAge={35} userHeight={175}></Welcome>
       <Welcome userName="유관우" userAge={35} userHeight={175}></Welcome>
       <Welcome userName="홍길동" userAge={35} userHeight={175}></Welcome>
+      <InputComponents></InputComponents>
     </div>
   );
 }
