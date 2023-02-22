@@ -17,17 +17,32 @@ const AuthResultPage = () => {
             grant_type: "authorization_code"
         };
 
+        const parsedSendData = queryString.stringify(sendData);
+
+
         const option = {
             method: "POST",
             url: "https://testapi.openbanking.or.kr/oauth/2.0/token",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            data: sendData,
+            data: parsedSendData, // <- sendData 말고 parsedSendData 로 해야하나  ?? 해보니까 둘다되는디
         };
 
-        axios(option).then((response) => {
-            console.log(response);
+
+
+        axios(option).then(({ data }) => {
+            console.log(data.access_token);
+            console.log(data.refresh_token);
+
+            if (data.rsp_code !== "00001") {
+                localStorage.setItem("accessToken", data.access_token);
+                localStorage.setItem("userSeqNo", data.user_seq_no);
+            } else {
+                alert("인증에 실패했습니다. 다시 시도해 주세요");
+            }
+
+
         })
 
     }
