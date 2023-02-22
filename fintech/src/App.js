@@ -5,15 +5,14 @@ import ListComponentes from "./components/ListComponents";
 import AxiosComponents from "./components/AxiosComponent";
 import StyledComponent from "./components/StyledComponents";
 import Welcome from "./components/Welcome"
+import NewsPage from "./pages/NewsPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Welcome />}></Route>
-        <Route path="/input" element={<InputComponents />}></Route>
-        <Route path="/list" element={<ListComponentes />}></Route>
-        <Route path="/axios" element={<AxiosComponents />}></Route>
+        <Route path="/news" element={<NewsPage />}></Route>
+
       </Routes>
     </BrowserRouter>
   );
