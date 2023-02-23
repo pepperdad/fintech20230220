@@ -1,16 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import AppHeader from '../components/Common/AppHeader'
 import queryString from "query-string"
 import axios from 'axios';
 import BalanceCard from '../components/Balance/BalanceCard';
+import TransactionList from '../components/Balance/TransactionList';
 
 const BalancePage = () => {
     const search = useLocation().search;
     const fintechUseNo = queryString.parse(search).fintechUseNo;
     console.log(fintechUseNo);
+
+    const [balance, setBalance] = useState({});
+    const [transactionList, setTransactionList] = useState([]);
+
     useEffect(() => {
         getBalance();
+        getTransactionList();
         console.log(genTransId());
     }, []) // 기본이 mount
 
@@ -48,6 +54,38 @@ const BalancePage = () => {
 
         axios(option).then(({ data }) => {
             console.log(data);
+            setBalance(data);
+        });
+    };
+
+    /** 
+     * #work6 거래내역 조회 api 활용해서 데이터 조회하기
+     */
+    const getTransactionList = () => {
+
+        const accessToken = localStorage.getItem("accessToken");
+
+        const option = {
+            method: "GET",
+            url: "/v2.0/account/transaction_list/fin_num",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            params: {
+                bank_tran_id: genTransId(),
+                fintech_use_num: fintechUseNo,
+                inquiry_type: "A",
+                inquiry_base: "D",
+                from_date: "20230223",
+                to_date: "20230223",
+                sort_order: "D",
+                tran_dtime: "20230223143800"
+            },
+        };
+
+        axios(option).then(({ data }) => {
+            console.log(data);
+            setTransactionList(data.res_list);
         });
     };
 
@@ -55,8 +93,10 @@ const BalancePage = () => {
     return (
         <div>
             <AppHeader title={"잔액조회"}></AppHeader>
-        </div>
-    )
+            <BalanceCard bankName={balance.bank_name} fintechNo={fintechUseNo} balance={balance.balance_amt} ></BalanceCard>
+            <TransactionList transactionList={transactionList}></TransactionList>
+        </div >
+    );
 }
 
 export default BalancePage;
