@@ -40,22 +40,23 @@ const ButtonBlock = styled.div`
 `;
 
 const MainAccountCard = ({ bankName, fintechUseNo }) => {
-    const handleQrButton = () => {
-        console.log("QR 버튼 클릭");
-    };
-    const handleBalanceButton = () => {
-        console.log("잔액조회 버튼 클릭");
-    };
-    return (
-        <CardBlock>
-            <CardTitle>{bankName}</CardTitle>
-            <FintechUseNo>{fintechUseNo}</FintechUseNo>
-            <ButtonBlock>
-                <QrButton onClick={handleQrButton}>qr코드</QrButton>
-                <BalanceButton onClick={handleBalanceButton}>잔액조회</BalanceButton>
-            </ButtonBlock>
-        </CardBlock>
-    );
+  const handleQrButton = () => {
+    console.log("QR 버튼 클릭");
+  };
+  const handleBalanceButton = () => {
+    console.log("잔액조회 버튼 클릭");
+    window.location.href = `/balance?fintechUseNo=${fintechUseNo}`;
+  };
+  return (
+    <CardBlock>
+      <CardTitle>{bankName}</CardTitle>
+      <FintechUseNo>{fintechUseNo}</FintechUseNo>
+      <ButtonBlock>
+        <QrButton onClick={handleQrButton}>qr코드</QrButton>
+        <BalanceButton onClick={handleBalanceButton}>잔액조회</BalanceButton>
+      </ButtonBlock>
+    </CardBlock>
+  );
 };
 
 export default MainAccountCard;
