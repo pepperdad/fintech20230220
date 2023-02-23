@@ -14,7 +14,7 @@ function App() {
         <Route path="/news" element={<NewsPage />}></Route>
         <Route path="authResult" element={<AuthResultPage />}></Route>
         <Route path="/main" element={<MainPage />}></Route>
-        <Route path="balance" element={<BalancePage></BalancePage>}></Route>
+        <Route path="/balance" element={<BalancePage></BalancePage>}></Route>
       </Routes>
     </BrowserRouter >
   );
