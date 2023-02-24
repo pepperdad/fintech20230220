@@ -82,18 +82,62 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
       if (data.rsp_code === "A0000") {
         deposit();
       } else {
-        alert("출금 이체가 실패하였습니다.")
+        console.log(data);
+        alert("출금 이체가 실패하였습니다.");
       }
     });
 
   };
 
   const deposit = () => {
+    /**
+     * #Last Work
+     * 입금이체 작성해 주세요 !
+     * 2Legged token 사용 !
+     * 입금을 하는 계좌를 잘 선택해주세요
+     */
+
+    const twoLeggedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJNMjAyMzAwNDE2Iiwic2NvcGUiOlsib29iIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjg0OTgyOTQ1LCJqdGkiOiI0NzcxODQ5YS1jOTBlLTQzZWItOGU4OS0yNWE3NzFhNDZmODYifQ.O6L0fC2cO4klU_Et9FQkiTlTD1mO0KyS4y1txO5Ih0c'
+
+    let data = {
+      "cntr_account_type": "N",
+      "cntr_account_num": "200000000001",
+      "wd_pass_phrase": "NONE",
+      "wd_print_content": "환불금액",
+      "name_check_option": "off",
+      "tran_dtime": "20230224130100",
+      "req_cnt": "1",
+      "req_list": [
+        {
+          "tran_no": "1",
+          "bank_tran_id": genTransId(),
+          "fintech_use_num": fintechUseNo,
+          "print_content": "오픈서비스캐시백",
+          "tran_amt": amount,
+          "req_client_name": "정도영",
+          "req_client_fintech_use_num": tofintechno,
+          "req_client_num": "DOYONQ",
+          "transfer_purpose": "ST"
+        }
+      ]
+    };
+
+    const option = {
+      method: "POST",
+      url: "/v2.0/transfer/deposit/fin_num",
+      headers: {
+        Authorization: `Bearer ${twoLeggedToken}`,
+      },
+      data: data,
+    }
+
+    axios(option).then(({ data }) => {
+      console.log(data);
+
+      alert("결제 완료!");
+    })
 
 
-    const towLeggedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJNMjAyMzAwNDE2Iiwic2NvcGUiOlsib29iIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjg0OTgyOTQ1LCJqdGkiOiI0NzcxODQ5YS1jOTBlLTQzZWItOGU4OS0yNWE3NzFhNDZmODYifQ.O6L0fC2cO4klU_Et9FQkiTlTD1mO0KyS4y1txO5Ih0c'
-
-    alert("결제 완료");
   };
 
   const handleChange = (e) => {
