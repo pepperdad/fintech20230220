@@ -5,8 +5,8 @@ import ModalWithdraw from "../components/Withdraw/ModalWithdraw";
 import Modal from "react-modal";
 
 const QrReaderPage = () => {
-    const [data, setData] = useState("No result");
-    const [openModal, setOpenModal] = useState(false); //no camera : true
+    const [data, setData] = useState("120230041688951020102059");
+    const [openModal, setOpenModal] = useState(true); //no camera : true
     const CustomStyles = {
         overlay: {
             backgroundColor: "rgba(0, 0, 0, 0.7)",

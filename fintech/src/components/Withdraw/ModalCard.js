@@ -47,7 +47,6 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
     // 결과를 로그로 작성
 
     const accessToken = localStorage.getItem("accessToken");
-    const userSeqNo = localStorage.getItem("userSeqNo");
 
     let data = {
       bank_tran_id: genTransId(),
@@ -80,13 +79,21 @@ const ModalCard = ({ bankName, fintechUseNo, tofintechno }) => {
     };
 
     axios(option).then(({ data }) => {
-      console.log(data);
+      if (data.rsp_code === "A0000") {
+        deposit();
+      } else {
+        alert("출금 이체가 실패하였습니다.")
+      }
     });
 
   };
 
   const deposit = () => {
 
+
+    const towLeggedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJNMjAyMzAwNDE2Iiwic2NvcGUiOlsib29iIl0sImlzcyI6Imh0dHBzOi8vd3d3Lm9wZW5iYW5raW5nLm9yLmtyIiwiZXhwIjoxNjg0OTgyOTQ1LCJqdGkiOiI0NzcxODQ5YS1jOTBlLTQzZWItOGU4OS0yNWE3NzFhNDZmODYifQ.O6L0fC2cO4klU_Et9FQkiTlTD1mO0KyS4y1txO5Ih0c'
+
+    alert("결제 완료");
   };
 
   const handleChange = (e) => {
