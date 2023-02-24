@@ -1,5 +1,6 @@
 const express = require("express");
 const axios = require("axios")
+const port = 4000;
 const app = express(); // respond with "hello world" when a GET request is made to the homepage
 
 app.get("/", (req, res) => {
@@ -47,7 +48,6 @@ app.get("/transaction", (req, res) => {
     };
 
     axios(option).then(({ data }) => {
-        console.log(data);
         //mysql 데이터 입력 쿼리
         res.json(data);
     });
@@ -61,4 +61,5 @@ const genTransId = () => {
 };
 
 
-app.listen(4000);
+app.listen(port);
+console.log(`http://localhost:${port}`);
